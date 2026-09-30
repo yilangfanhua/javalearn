@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.ProductMapper">
+
+    <resultMap id="productResultMap" type="com.example.demo.entity.Product">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="stock" column="stock"/>
+        <result property="version" column="version"/>
+    </resultMap>
+
+    <select id="findById" resultMap="productResultMap">
+        SELECT id, name, stock, version
+        FROM products
+        WHERE id = #{id}
+    </select>
+
+    <update id="decreaseStock">
+        UPDATE products
+        SET stock = stock - #{quantity},
+            version = version + 1
+        WHERE id = #{id}
+          AND stock >= #{quantity}
+          AND version = #{version}
+    </update>
+</mapper>

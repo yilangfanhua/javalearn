@@ -1,0 +1,175 @@
+重新打开项目记得重启redis
+
+
+project里面mybatis使用在哪里
+
+AuthenticationManager
+    ↓
+AccountUserDetailsService
+在哪里调用的
+
+authservice 从request里面拿到name 和password给AuthenticationManager,
+AuthenticationManager是什么
+从数据库拿数据是在哪执行的，对比验证写在哪
+
+请求
+  ↓
+SecurityFilterChain
+  ↓
+JwtAuthenticationFilter
+请求先进入过滤器是spring 规定的嘛，他是怎么识别到过滤器的
+
+AccountMapper的作用是查询和保存账号，可它只声明了两个方法，具体访问数据库是在哪，查询和保存账号
+
+SecurityConfig
+    配置哪些接口公开、哪些接口需要认证
+
+AuthController
+    接收注册和登录请求
+
+AuthService
+    编排注册和登录业务
+
+AccountMapper
+    查询和保存账号
+
+AccountUserDetailsService
+    把数据库账号转换成 UserDetails
+
+JwtService
+    创建、解析、验证 JWT
+
+JwtAuthenticationFilter
+    每次请求读取 JWT，并建立当前用户身份
+
+
+登录：
+Controller
+ → AuthService
+ → AuthenticationManager
+ → UserDetailsService
+ → PasswordEncoder
+ → JwtService
+ → 返回 Token
+
+访问：
+请求
+ → JwtAuthenticationFilter
+ → JwtService 验证 Token
+ → UserDetailsService 查询用户
+ → SecurityContextHolder 保存身份
+ → SecurityConfig 判断权限
+ → Controller
+
+
+
+ 使用返回的token get返回200和,post（增）返回403是为什么
+
+
+
+
+
+
+ 第一阶段：Spring Boot 基础
+- 创建 Spring Boot 项目
+- Controller、Service、Repository
+- RESTful API
+- GET、POST、PUT、DELETE
+- 内存数据 CRUD
+- Postman 调试
+第二阶段：MySQL 与 MyBatis
+- MySQL 数据库
+- 表结构设计
+- SQL 增删改查
+- MyBatis Mapper
+- XML 映射文件
+- 分页和条件查询
+- 数据库事务基础
+第三阶段：Redis 缓存
+- Redis 基本命令
+- Spring Boot 连接 Redis
+- 查询缓存
+- 缓存更新和删除
+- 缓存过期时间
+- 缓存和数据库一致性
+第四阶段：完整业务模块
+- 用户模块
+- 商品模块
+- 订单模块
+- 文件上传模块
+- DTO 和统一响应
+- 分页接口
+- 全局异常处理
+- 接口参数校验
+第五阶段：Spring Security 与 JWT
+- 用户注册和登录
+- AuthenticationManager
+- UserDetailsService
+- 密码加密
+- JWT 生成和解析
+- JWT 过滤器
+- 登录认证
+- USER、ADMIN 权限控制
+第六阶段：项目测试
+- JUnit
+- MockMvc
+- Controller 测试
+- Service 测试
+- MyBatis 测试
+- 权限测试
+- 异常测试
+- PowerShell 自动化测试脚本
+你目前已经完成到这里，并且 smoke test 已经全部通过。
+第七阶段：Docker 部署
+- Docker 基础
+- Docker 部署 MySQL
+- Docker 部署 Redis
+- Dockerfile
+- Docker Compose
+- Spring Boot 容器化
+- 容器网络
+- 数据卷和数据持久化
+- 一键启动完整项目
+第八阶段：项目工程化
+- 多环境配置
+- application-dev.yml
+- application-test.yml
+- application-prod.yml
+- 环境变量
+- 配置中心基础
+- 日志管理
+- 接口文档 Swagger
+- Git 分支和版本管理
+第九阶段：生产环境基础
+- Linux 基础命令
+- 云服务器部署
+- Nginx 反向代理
+- HTTPS
+- 域名配置
+- 防火墙和端口
+- 服务自动启动
+- 日志查看和故障排查
+第十阶段：高级后端能力
+- Spring 事务深入
+- 数据库索引
+- SQL 优化
+- Redis 高级应用
+- 消息队列
+- 异步任务
+- 定时任务
+- 并发和线程池
+- 接口幂等性
+- 分布式锁
+第十一阶段：综合项目
+最终独立完成一个完整项目，例如：
+用户登录
+商品管理
+购物车
+订单创建
+库存扣减
+权限控制
+Redis 缓存
+文件上传
+Docker 部署
+接口测试
+Linux 服务器部署
